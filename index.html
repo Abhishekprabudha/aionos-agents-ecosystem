@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIonOS App Factory Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-pill">AIonOS App Factory</div>
+        <h1>From intent to application</h1>
+        <p class="muted">A moving, narrated HTML demo that shows how UniWeave, UniScale, UniStack and UniProtect assemble enterprise AI apps on demand.</p>
+      </div>
+
+      <div class="controls card">
+        <h3>Demo Controls</h3>
+        <label class="label">Industry Scenario</label>
+        <select id="scenarioSelect"></select>
+
+        <div class="button-row">
+          <button id="autoplayBtn" class="primary">Autoplay demo</button>
+          <button id="composeBtn">Compose app</button>
+        </div>
+        <div class="button-row">
+          <button id="resetBtn">Reset</button>
+          <button id="narrationBtn">Narration: On</button>
+        </div>
+
+        <label class="label top-gap">Jump to step</label>
+        <div class="step-buttons" id="stepButtons"></div>
+      </div>
+
+      <div class="storyboard card">
+        <h3>Storyboard</h3>
+        <ol id="storyboardList"></ol>
+      </div>
+
+      <div class="repo card">
+        <h3>What this repo includes</h3>
+        <ul>
+          <li>Single-page premium HTML demo</li>
+          <li>Autoplay + presenter-style step control</li>
+          <li>Scenario-driven app composition engine</li>
+          <li>SVG/CSS motion flows showing platform convergence</li>
+          <li>Optional browser narration via Web Speech API</li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="stage">
+      <section class="topbar">
+        <div class="topbar-left">
+          <div class="micro-label">Intent Console</div>
+          <div class="intent-box" id="intentBox">Create a refinery operations copilot</div>
+        </div>
+        <div class="topbar-right">
+          <div class="badge">Copilot</div>
+          <div class="badge">Agent</div>
+          <div class="badge">Workflow</div>
+        </div>
+      </section>
+
+      <section class="canvas card">
+        <div class="stage-grid">
+          <div class="platform-column left">
+            <div class="platform-card unistack" data-platform="unistack">
+              <div class="platform-bar"></div>
+              <h2>UniStack</h2>
+              <p>Agent Ops · Data Ops · Cloud Ops</p>
+              <div class="chips"></div>
+            </div>
+
+            <div class="platform-card uniweave" data-platform="uniweave">
+              <div class="platform-bar"></div>
+              <h2>UniWeave</h2>
+              <p>Copilots · Multimodal UX · Orchestration</p>
+              <div class="chips"></div>
+            </div>
+
+            <div class="platform-card uniscale" data-platform="uniscale">
+              <div class="platform-bar"></div>
+              <h2>UniScale</h2>
+              <p>Workflow AI · Document AI · B2B automation</p>
+              <div class="chips"></div>
+            </div>
+          </div>
+
+          <div class="center-column">
+            <svg class="flow-layer" viewBox="0 0 900 540" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="g-teal" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#18c7b6"></stop>
+                  <stop offset="100%" stop-color="#9bf4ea"></stop>
+                </linearGradient>
+                <linearGradient id="g-blue" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#3867ff"></stop>
+                  <stop offset="100%" stop-color="#9bb4ff"></stop>
+                </linearGradient>
+                <linearGradient id="g-orange" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#ffab2d"></stop>
+                  <stop offset="100%" stop-color="#ffd796"></stop>
+                </linearGradient>
+                <linearGradient id="g-green" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#2fb98a"></stop>
+                  <stop offset="100%" stop-color="#90f0cc"></stop>
+                </linearGradient>
+              </defs>
+
+              <path id="flow-unistack" class="flow-path teal" d="M 170 90 C 280 140, 330 170, 430 210"></path>
+              <path id="flow-uniweave" class="flow-path blue" d="M 170 250 C 280 250, 330 240, 430 230"></path>
+              <path id="flow-uniscale" class="flow-path orange" d="M 170 410 C 280 350, 330 290, 430 250"></path>
+              <path id="flow-uniprotect" class="flow-path green" d="M 470 480 C 470 430, 470 380, 470 330"></path>
+
+              <path id="out-1" class="output-path active-line" d="M 580 180 C 670 180, 700 180, 760 180"></path>
+              <path id="out-2" class="output-path active-line" d="M 580 245 C 670 245, 700 245, 760 245"></path>
+              <path id="out-3" class="output-path active-line" d="M 580 310 C 670 310, 700 310, 760 310"></path>
+              <path id="out-4" class="output-path active-line" d="M 580 375 C 670 375, 700 375, 760 375"></path>
+            </svg>
+
+            <div class="composer-shell">
+              <div class="composer outer-ring ring-1"></div>
+              <div class="composer outer-ring ring-2"></div>
+              <div class="composer card active" id="composer">
+                <div class="micro-label">AI APP</div>
+                <h2 id="appTitle">Enterprise AI Workflow</h2>
+                <p id="appSubtitle">Build, deploy and govern an enterprise AI workflow in minutes.</p>
+                <div class="pill-row" id="pillRow"></div>
+                <div class="assembly-timeline" id="assemblyTimeline"></div>
+              </div>
+            </div>
+
+            <div class="platform-card uniprotect bottom-protect" data-platform="uniprotect">
+              <div class="platform-bar"></div>
+              <h2>UniProtect</h2>
+              <p>Security · Access Control · Auditability</p>
+              <div class="chips"></div>
+            </div>
+
+            <div class="footnote">
+              Enterprise data connects once → the platform composes reusable AI building blocks → business apps go live fast
+            </div>
+          </div>
+
+          <div class="output-column">
+            <div class="output-card" id="output1"></div>
+            <div class="output-card" id="output2"></div>
+            <div class="output-card" id="output3"></div>
+            <div class="output-card" id="output4"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bottom-panels">
+        <div class="panel card">
+          <div class="panel-header">
+            <h3>Live narration</h3>
+            <span id="stepCounter">Step 1 / 5</span>
+          </div>
+          <p id="narrationText">The enterprise defines intent once. The platform interprets what to build and begins composing the app.</p>
+        </div>
+        <div class="panel card">
+          <div class="panel-header">
+            <h3>Business outcome signals</h3>
+          </div>
+          <div class="metrics" id="metrics"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="scenarios.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
